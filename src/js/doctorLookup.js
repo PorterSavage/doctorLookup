@@ -6,16 +6,13 @@ export function searchByName(doctorName) {
   let apiKey = process.env.exports.apiKey;
   const url = `https://api.betterdoctor.com/2016-03-01/doctors?first_name=${doc}&location=wa-seattle&skip=0&limit=11&user_key=${apiKey}`;
   request.onreadystatechange = function() {
-    let message = document.getElementById("error");
-    try {
-      if(this.readyState === 4 && this.status === 200) {
-        const response = JSON.parse(this.responseText);
-        getElements(response);
-      }
-    }catch(err) {
-      message.innerHTML = "Error is " + err;
+    if(this.readyState === 4 && this.status === 200) {
+      const response = JSON.parse(this.responseText);
+      getElements(response);
+    }else {
+      $("#error").text(this.status);
     }
-  }
+  };
   request.open("GET", url, true);
   request.send();
   const getElements = function(response) {
@@ -40,16 +37,13 @@ export function searchBySymptom(symptom) {
   let apiKey = process.env.exports.apiKey;
   const url = `https://api.betterdoctor.com/2016-03-01/doctors?query=${sympt}&location=wa-seattle&skip=0&limit=11&user_key=${apiKey}`
   request.onreadystatechange = function() {
-    let message = document.getElementById("error");
-    try {
-      if(this.readyState === 4 && this.status === 200) {
-        const response = JSON.parse(this.responseText);
-        getElements(response);
-      }
-    }catch(err) {
-      message.innerHTML = "Error is " + err;
+    if(this.readyState === 4 && this.status === 200) {
+      const response = JSON.parse(this.responseText);
+      getElements(response);
+    }else{
+      $("#error").text(this.status);
     }
-  }
+  };
   request.open("GET", url, true);
   request.send();
   const getElements = function(response) {
